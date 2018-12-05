@@ -3,7 +3,7 @@ package com.lwx.mystory.utils;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 /**
- * 缓存单利类
+ * 缓存单例类
  */
 public class MapCache {
 

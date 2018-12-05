@@ -14,6 +14,8 @@ public interface Types {
 
     //
     String PUBLISH = "publish";
+    //文章点击频率
+    String HITS_FREQUENCY = "hits:frequency";
 
 
 

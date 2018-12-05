@@ -64,4 +64,9 @@ public class ContentServiceImpl implements IContentService {
     public PageInfo<Content> getArticlesWithPage(Integer page, Integer limit) {
         return null;
     }
+
+    @Override
+    public PageInfo<Content> getTagArticles(Integer mid, int page, int limit) {
+        return null;
+    }
 }

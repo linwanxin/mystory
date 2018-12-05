@@ -3,10 +3,15 @@ package com.lwx.mystory.controller;
 import com.github.pagehelper.PageInfo;
 import com.lwx.mystory.constant.WebConstant;
 import com.lwx.mystory.model.dto.Types;
+import com.lwx.mystory.model.entity.Comment;
 import com.lwx.mystory.model.entity.Content;
+import com.lwx.mystory.model.entity.Meta;
+import com.lwx.mystory.service.ICommentService;
 import com.lwx.mystory.service.IContentService;
+import com.lwx.mystory.service.IMetaService;
 import com.lwx.mystory.service.IVisitService;
 import com.lwx.mystory.utils.IPKit;
+import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,10 @@ public class IndexController extends  BaseController{
     private IVisitService visitService;
     @Autowired
     private IContentService contentService;
+    @Autowired
+    private ICommentService commentService;
+    @Autowired
+    private IMetaService metaService;
 
 
     @GetMapping(value = "/")
@@ -71,6 +80,13 @@ public class IndexController extends  BaseController{
         return this.render("index");
     }
 
+    /**
+     * 文章详情页
+     * @param request
+     * @param cid 文章ID
+     * @param coid 评论页码
+     * @return
+     */
     @GetMapping("article/{cid}/{coid}")
     public String getArticle(HttpServletRequest request,
                              @PathVariable String cid,
@@ -81,15 +97,98 @@ public class IndexController extends  BaseController{
         }
         request.setAttribute("article",content);
         request.setAttribute("is_post",true);
-        //
+        //获取评论
         completArticle(coid,request,content);
+        if(!checkHitsFrequency(request,cid)){
+            //更新文章点击量
+            updateArticleHit(content.getCid(),content.getHits());
+        }
+        return this.render("post");
     }
 
+    /**
+     * 文章里的标签页
+     * @param request
+     * @param name
+     * @param limit
+     * @return
+     */
+    @GetMapping(value = "tag/{name}")
+    public String tags(HttpServletRequest request,
+                       @PathVariable String name,
+                       @RequestParam(value = "limit", defaultValue = "12") int limit){
+        return this.tags(request,name,1,limit);
+    }
+
+    /**
+     * 标签的前台分页
+     * @param request
+     * @param name
+     * @param page
+     * @param limit
+     * @return
+     */
+    @GetMapping(value = "tag/{name}/{page}")
+    public String tags(HttpServletRequest request,
+                       @PathVariable String name,
+                       @PathVariable int page,
+                       @RequestParam(value = "limit", defaultValue = "12") int limit){
+        page = page < 0 || page > WebConstant.MAX_PAGE ? 1 : page;
+        //对于空格的特殊处理
+        name = name.replaceAll("\\+"," ");
+        Meta meta = metaService.getMeta(Types.TAG,name);
+        if(null == meta){
+            return this.render_404();
+        }
+
+        PageInfo<Content> contentPageInfo = contentService.getTagArticles(meta.getMid(),page,limit);
+        request.setAttribute("articles",contentPageInfo);
+        request.setAttribute("type","标签");
+        request.setAttribute("keyword",name);
+
+        return this.render("page-category");
+    }
+
+    private void updateArticleHit(Integer cid,Integer chits){
+        if(chits == 0 || chits == null){
+            chits = 0;
+        }
+        chits += 1;
+        Content tempContent = new Content();
+        tempContent.setCid(cid);
+        tempContent.setHits(chits);
+        contentService.updateContent(tempContent);
+    }
+
+    /**
+     * 检查文章点击频率
+     * @param request
+     * @param cid
+     * @return
+     */
+    private boolean checkHitsFrequency(HttpServletRequest request,String cid){
+        String val = IPKit.getIPAddrByRequest(request)+ ":" + cid ;
+        Integer count = cache.hget(Types.HITS_FREQUENCY,val);
+        if(count != null && count > 0 ){
+            return true;
+        }
+        //如果未访问过就设置在缓存中
+        cache.hset(Types.HITS_FREQUENCY,val,1,WebConstant.HITS_LIMIT_TIME);
+        return false;
+    }
+    /**
+     * 文章详情页的评论分页
+     * @param coid commentId
+     * @param request
+     * @param content
+     */
     private void completArticle(String coid,HttpServletRequest request,Content content){
+        //允许评论
         if(content.getAllowComment() == 1){
-            PageInfo<Content>
+            //每页6条评论
+            PageInfo<Comment> comments  = commentService.getCommentsByContentId(content.getCid(),Integer.parseInt(coid),6);
+            request.setAttribute("comments",comments);
         }
     }
-
 
 }

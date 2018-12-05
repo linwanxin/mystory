@@ -33,7 +33,6 @@ public class IPKit {
     }
 
     public static String getRealIp(){
-
         String ip = null;
 
     }

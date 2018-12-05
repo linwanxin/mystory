@@ -70,6 +70,17 @@ public interface IContentService {
      */
     PageInfo<Content> getArticlesWithPage(Integer page,Integer limit);
 
+    /**
+     * 查询标签下面所属的文章
+     * @param mid
+     * @param page
+     * @param limit
+     * @return
+     */
+     PageInfo<Content> getTagArticles(Integer mid,int page, int limit);
+
+
+
 
 
 }
