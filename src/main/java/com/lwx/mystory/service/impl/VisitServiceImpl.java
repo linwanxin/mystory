@@ -1,6 +1,6 @@
 package com.lwx.mystory.service.impl;
 
-import com.lwx.mystory.Mapper.VisitMapper;
+import com.lwx.mystory.mapper.VisitMapper;
 import com.lwx.mystory.model.entity.Visit;
 import com.lwx.mystory.service.IVisitService;
 import org.springframework.beans.factory.annotation.Autowired;

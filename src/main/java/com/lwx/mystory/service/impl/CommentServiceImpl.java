@@ -2,7 +2,7 @@ package com.lwx.mystory.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lwx.mystory.Mapper.CommentMapper;
+import com.lwx.mystory.mapper.CommentMapper;
 import com.lwx.mystory.model.entity.Comment;
 import com.lwx.mystory.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;

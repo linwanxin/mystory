@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwx.mystory.mapper.ContentMapper">
+    <resultMap id="BaseResultMap" type="com.lwx.mystory.model.entity.Content">
+        <id column="cid" jdbcType="INTEGER" property="cid" />
+        <result column="title" jdbcType="INTEGER" property="title" />
+        <result column="slug" jdbcType="VARCHAR" property="slug" />
+        <result column="created" jdbcType="INTEGER" property="created" />
+        <result column="modified" jdbcType="INTEGER" property="modified" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="author_id" jdbcType="INTEGER" property="authorId" />
+        <result column="hits" jdbcType="INTEGER" property="hits" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="fmt_type" jdbcType="VARCHAR" property="fmtType" />
+        <result column="thumb_img" jdbcType="VARCHAR" property="thumbImg" />
+        <result column="tags" jdbcType="VARCHAR" property="tags" />
+        <result column="categories" jdbcType="VARCHAR" property="categories" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="comments_num" jdbcType="INTEGER" property="commentsNum" />
+        <result column="allow_comment" jdbcType="INTEGER" property="allowComment" />
+        <result column="allow_ping" jdbcType="INTEGER" property="allowPing" />
+        <result column="allow_feed" jdbcType="INTEGER" property="allowFeed" />
+    </resultMap>
+
+    <select id="getContentsByType" resultMap="BaseResultMap">
+        SELECT * from t_contents WHERE type = #{type} and status = #{status} order by created desc
+    </select>
+</mapper>

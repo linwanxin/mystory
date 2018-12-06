@@ -1,4 +1,4 @@
-package com.lwx.mystory.Mapper;
+package com.lwx.mystory.mapper;
 
 import com.lwx.mystory.model.entity.Comment;
 import org.apache.ibatis.annotations.Param;

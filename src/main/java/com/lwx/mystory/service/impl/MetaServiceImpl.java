@@ -1,6 +1,6 @@
 package com.lwx.mystory.service.impl;
 
-import com.lwx.mystory.Mapper.MetaMapper;
+import com.lwx.mystory.mapper.MetaMapper;
 import com.lwx.mystory.model.entity.Meta;
 import com.lwx.mystory.service.IMetaService;
 import org.springframework.beans.factory.annotation.Autowired;

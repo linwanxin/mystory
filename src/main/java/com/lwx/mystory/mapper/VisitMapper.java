@@ -1,4 +1,4 @@
-package com.lwx.mystory.Mapper;
+package com.lwx.mystory.mapper;
 
 import com.lwx.mystory.model.entity.Visit;
 import org.apache.ibatis.annotations.Param;
@@ -9,5 +9,5 @@ public interface VisitMapper {
 
     Visit getCountById(@Param("id") Integer id);
 
-    void updateCountById(@Param("id") Integer id);
+    void updateCountById(@Param("times") Integer times);
 }

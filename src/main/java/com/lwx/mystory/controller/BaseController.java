@@ -23,13 +23,13 @@ public class BaseController {
         request.setAttribute("keywords",keywords);
         return this;
     }
-    public Users user(HttpServletRequest request){
+ /*  lwx public Users user(HttpServletRequest request){
         return Taleutils.getLoginUser(request);
-    }
+    }*/
 
-    public Integer getUserid(HttpServletRequest request){
+ /*   public Integer getUserid(HttpServletRequest request){
         return this.user(request).getId();
-    }
+    }*/
 
     public String render_404(){
         return "comm/error_404";

@@ -6,12 +6,8 @@ import com.lwx.mystory.model.dto.Types;
 import com.lwx.mystory.model.entity.Comment;
 import com.lwx.mystory.model.entity.Content;
 import com.lwx.mystory.model.entity.Meta;
-import com.lwx.mystory.service.ICommentService;
-import com.lwx.mystory.service.IContentService;
-import com.lwx.mystory.service.IMetaService;
-import com.lwx.mystory.service.IVisitService;
+import com.lwx.mystory.service.*;
 import com.lwx.mystory.utils.IPKit;
-import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +30,15 @@ public class IndexController extends  BaseController{
     private ICommentService commentService;
     @Autowired
     private IMetaService metaService;
+    @Autowired
+    private SiteService siteService;
 
-
+    /**
+     * 首页
+     * @param request
+     * @param limit
+     * @return
+     */
     @GetMapping(value = "/")
     public String index(HttpServletRequest request,
                         @RequestParam(value = "limit",defaultValue = "12") int limit){
@@ -43,10 +46,9 @@ public class IndexController extends  BaseController{
         return this.index(request,1,limit);
     }
 
-
     public synchronized void visitCount(HttpServletRequest request){
         String val = IPKit.getIPAddrByRequest(request);
-        //id为什么是1？
+        //visit表仅仅是用来记录访问网站被不同IP的访问次数
         Integer times = visitService.getCountById(1).getCount();
         //缓存中是否存在
         Integer count  = cache.hget(Types.VISIT_COUNT,val);
@@ -107,7 +109,7 @@ public class IndexController extends  BaseController{
     }
 
     /**
-     * 文章里的标签页
+     * 文章里的标签;分页处理
      * @param request
      * @param name
      * @param limit
@@ -120,14 +122,6 @@ public class IndexController extends  BaseController{
         return this.tags(request,name,1,limit);
     }
 
-    /**
-     * 标签的前台分页
-     * @param request
-     * @param name
-     * @param page
-     * @param limit
-     * @return
-     */
     @GetMapping(value = "tag/{name}/{page}")
     public String tags(HttpServletRequest request,
                        @PathVariable String name,
@@ -148,6 +142,11 @@ public class IndexController extends  BaseController{
 
         return this.render("page-category");
     }
+
+ /*   @GetMapping("archives")
+    public String archives(HttpServletRequest request){
+        List<Archive>
+    }*/
 
     private void updateArticleHit(Integer cid,Integer chits){
         if(chits == 0 || chits == null){

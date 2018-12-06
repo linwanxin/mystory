@@ -2,7 +2,7 @@ package com.lwx.mystory.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lwx.mystory.Mapper.ContentMapper;
+import com.lwx.mystory.mapper.ContentMapper;
 import com.lwx.mystory.model.dto.Types;
 import com.lwx.mystory.model.entity.Content;
 import com.lwx.mystory.service.IContentService;
