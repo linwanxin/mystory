@@ -2,6 +2,7 @@ package com.lwx.mystory.controller;
 
 import com.lwx.mystory.model.entity.Users;
 import com.lwx.mystory.utils.MapCache;
+import com.lwx.mystory.utils.TaleUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,13 +24,13 @@ public class BaseController {
         request.setAttribute("keywords",keywords);
         return this;
     }
- /*  lwx public Users user(HttpServletRequest request){
-        return Taleutils.getLoginUser(request);
-    }*/
+    public Users user(HttpServletRequest request){
+        return TaleUtils.getLoginUser(request);
+    }
 
- /*   public Integer getUserid(HttpServletRequest request){
+    public Integer getUserid(HttpServletRequest request){
         return this.user(request).getId();
-    }*/
+    }
 
     public String render_404(){
         return "comm/error_404";

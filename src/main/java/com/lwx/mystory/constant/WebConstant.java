@@ -20,13 +20,13 @@ public class WebConstant {
     public static final int MAX_TEXT_COUNT = 200000;
     //
 
-
     //访问次数记录，30分钟
     public static Integer VISIT_COUNT_TIME = 1800;
 
     //文章的访问点击频率
     public static Integer HITS_LIMIT_TIME = 900;
 
+    public static String STATUS_0 = "0";
 
 
 }

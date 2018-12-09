@@ -1,5 +1,6 @@
 package com.lwx.mystory.interceptor;
 
+import com.lwx.mystory.extension.AdminCommons;
 import com.lwx.mystory.extension.Commons;
 import com.lwx.mystory.model.entity.Option;
 import com.lwx.mystory.service.IOptionService;
@@ -31,6 +32,9 @@ public class BaseInterceptor implements HandlerInterceptor {
     @Autowired
     private Commons commons;
 
+    @Autowired
+    private AdminCommons adminCommons;
+
 
     @Override
     public  boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -46,10 +50,10 @@ public class BaseInterceptor implements HandlerInterceptor {
         Option ov = optionService.getOptionByName("site_record");
         request.setAttribute("commons",commons);
         request.setAttribute("option",ov);
+        request.setAttribute("adminCommons", adminCommons);
     }
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-
     }
 }

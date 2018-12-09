@@ -53,4 +53,9 @@ public class CommentServiceImpl implements ICommentService {
         PageInfo<Comment> commentPageInfo = new PageInfo(comments);
         return commentPageInfo;
     }
+
+    @Override
+    public List<Comment> selectCommentsByAuthorId(Integer authorId) {
+        return commentMapper.selectCommentsByAuthorId(authorId);
+    }
 }

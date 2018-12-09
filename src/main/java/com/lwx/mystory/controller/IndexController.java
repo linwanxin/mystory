@@ -53,7 +53,7 @@ public class IndexController extends  BaseController{
         //缓存中是否存在
         Integer count  = cache.hget(Types.VISIT_COUNT,val);
         if(count != null && count >0){
-
+               //暂时什么也不做！
         }else{
             //存入缓存并设置超时时间
             cache.hset(Types.VISIT_COUNT,val,1,WebConstant.VISIT_COUNT_TIME);

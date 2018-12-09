@@ -32,4 +32,7 @@ public interface ICommentService {
     String delCommentById(Integer id);
 
     PageInfo<Comment> getCommentsByContentId(Integer contentId,Integer page,Integer limit);
+
+    List<Comment> selectCommentsByAuthorId(Integer authorId);
+
 }

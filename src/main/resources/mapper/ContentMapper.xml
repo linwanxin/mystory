@@ -25,4 +25,5 @@
     <select id="getContentsByType" resultMap="BaseResultMap">
         SELECT * from t_contents WHERE type = #{type} and status = #{status} order by created desc
     </select>
+
 </mapper>
