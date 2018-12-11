@@ -26,4 +26,66 @@
         SELECT * from t_contents WHERE type = #{type} and status = #{status} order by created desc
     </select>
 
+    <select id="getContentById" resultMap="BaseResultMap">
+        select * from t_contents where cid = #{cid}
+    </select>
+
+    <update id="updateContent" parameterType="com.lwx.mystory.model.entity.Content">
+        update t_contents
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="slug != null">
+                slug = #{slug,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null">
+                created = #{created,jdbcType=INTEGER},
+            </if>
+            <if test="modified != null">
+                modified = #{modified,jdbcType=INTEGER},
+            </if>
+            <if test="authorId != null">
+                author_id = #{authorId,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="tags != null">
+                tags = #{tags,jdbcType=VARCHAR},
+            </if>
+            <if test="fmtType != null">
+                fmt_type = #{fmtType,jdbcType=VARCHAR},
+            </if>
+            <if test="thumbImg != null">
+                thumb_img = #{thumbImg,jdbcType=VARCHAR},
+            </if>
+            <if test="categories != null">
+                categories = #{categories,jdbcType=VARCHAR},
+            </if>
+            <if test="hits != null">
+                hits = #{hits,jdbcType=INTEGER},
+            </if>
+            <if test="commentsNum != null">
+                comments_num = #{commentsNum,jdbcType=INTEGER},
+            </if>
+            <if test="allowComment != null">
+                allow_comment = #{allowComment,jdbcType=INTEGER},
+            </if>
+            <if test="allowPing != null">
+                allow_ping = #{allowPing,jdbcType=INTEGER},
+            </if>
+            <if test="allowFeed != null">
+                allow_feed = #{allowFeed,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where cid = #{cid,jdbcType=INTEGER}
+    </update>
+
 </mapper>

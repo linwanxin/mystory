@@ -10,6 +10,7 @@ import com.lwx.mystory.service.ICommentService;
 import com.lwx.mystory.service.IContentService;
 import com.lwx.mystory.service.IOptionService;
 import com.lwx.mystory.service.IVisitService;
+import com.lwx.mystory.utils.DateKit;
 import com.lwx.mystory.utils.TaleUtils;
 import com.lwx.mystory.utils.UUID;
 import com.vdurmont.emoji.EmojiParser;
@@ -210,4 +211,41 @@ public class Commons {
         return visitService.getCountById(1).getCount();
     }
 
+    /**
+     * post页面:格式化unix时间戳为日期
+     */
+    public static String fmtdate(Integer unixTime){
+        return fmtdate(unixTime,"yyyy-MM-dd");
+    }
+    public static String fmtdate(Integer unixTime,String patten){
+        if(null !=unixTime && StringUtils.isNotBlank(patten)){
+            return DateKit.formatDateByUnixTime(unixTime,patten);
+        }
+        return "";
+    }
+
+    /**
+     *文章详情页显示标签
+     */
+    public static String show_tags(String tags) throws UnsupportedEncodingException {
+        if(StringUtils.isNotBlank(tags)){
+            String [] arr = tags.split(",");
+            StringBuffer sbuf = new StringBuffer();
+            for(String s : arr){
+                sbuf.append("<a href=\"/tag/"+URLEncoder.encode(s,"UTF-8") + "\">" +s + "</a>");
+            }
+            return sbuf.toString();
+        }
+        return "";
+    }
+    /**
+     *post页面：转换markdown为html
+     */
+    public static String article(String value){
+        if(StringUtils.isNotBlank(value)){
+            value = value.replace("<!--more-->","\r\n");
+            return TaleUtils.mdToHtml(value);
+        }
+        return "";
+    }
 }

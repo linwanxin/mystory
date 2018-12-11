@@ -39,5 +39,14 @@ public interface ContentMapper {
      */
     List<Content> getContentByConditions(@Param("type") String type,@Param("status") String status,@Param("startTime") Integer startTime,@Param("endTime") Integer endTime);
 
+    /**
+     * 根据文章ID获取文章
+     * @param cid
+     * @return
+     */
+    Content getContentById(@Param("cid") Integer cid);
+
+    boolean updateContent(Content content);
+
 
 }

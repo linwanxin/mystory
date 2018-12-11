@@ -43,4 +43,8 @@
     <select id="getChildsCommentsByParent" resultMap="BaseResultMap">
         SELECT * FROM t_comments WHERE status = 'approved' and parent = #{parent} order by created asc
     </select>
+
+    <select id="getCommentsByContentId" resultMap="BaseResultMap">
+        select * from t_comments where cid = #{cid} and status = #{status} and parent = '0' order by created desc ;
+    </select>
 </mapper>

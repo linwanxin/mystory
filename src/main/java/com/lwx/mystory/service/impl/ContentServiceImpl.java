@@ -37,12 +37,12 @@ public class ContentServiceImpl implements IContentService {
 
     @Override
     public boolean updateContent(Content content) {
-        return false;
+       return contentMapper.updateContent(content);
     }
 
     @Override
     public Content getContentById(Integer id) {
-        return null;
+        return contentMapper.getContentById(id);
     }
 
     @Override

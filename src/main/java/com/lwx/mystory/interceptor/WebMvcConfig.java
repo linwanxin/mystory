@@ -1,6 +1,7 @@
 package com.lwx.mystory.interceptor;
 
 import com.lwx.mystory.utils.TaleUtils;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -11,7 +12,7 @@ import javax.annotation.Resource;
  * @Author:linwx
  * @Date；Created in 22:06 2018/12/6
  **/
-@Component
+@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Resource
