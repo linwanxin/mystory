@@ -47,7 +47,7 @@ public class ContentServiceImpl implements IContentService {
 
     @Override
     public Content getContentBySlug(String slug) {
-        return null;
+        return contentMapper.getContentBySlug(slug);
     }
 
     @Override
@@ -67,6 +67,7 @@ public class ContentServiceImpl implements IContentService {
 
     @Override
     public PageInfo<Content> getTagArticles(Integer mid, int page, int limit) {
+        PageHelper.startPage(page,limit);
         return null;
     }
 }

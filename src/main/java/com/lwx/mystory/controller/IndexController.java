@@ -2,6 +2,7 @@ package com.lwx.mystory.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.lwx.mystory.constant.WebConstant;
+import com.lwx.mystory.model.dto.Archive;
 import com.lwx.mystory.model.dto.Types;
 import com.lwx.mystory.model.entity.Comment;
 import com.lwx.mystory.model.entity.Content;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class IndexController extends  BaseController{
@@ -46,6 +48,10 @@ public class IndexController extends  BaseController{
         return this.index(request,1,limit);
     }
 
+    /**
+     * 记录访客数量
+     * @param request
+     */
     public synchronized void visitCount(HttpServletRequest request){
         String val = IPKit.getIPAddrByRequest(request);
         //visit表仅仅是用来记录访问网站被不同IP的访问次数
@@ -143,11 +149,53 @@ public class IndexController extends  BaseController{
         return this.render("page-category");
     }
 
- /*   @GetMapping("archives")
+    /**
+     * 归档页面
+     */
+    @GetMapping("archives")
     public String archives(HttpServletRequest request){
-        List<Archive>
-    }*/
+        List<Archive> archiveList = siteService.getArchives();
+        request.setAttribute("archives",archiveList);
+        return render("archives");
+    }
 
+    /**
+     * 自定义页面，比如：about页面(原来slug的作用是这个)
+     */
+    @GetMapping("custom/{pagename}")
+    public String page(@PathVariable String pagename,
+                       HttpServletRequest request){
+        return page(pagename,"1",request);
+    }
+    @GetMapping("{pagename}/{coid}")
+    public String page(@PathVariable String pagename,
+                       @PathVariable String coid,
+                       HttpServletRequest request){
+        //根绝缩略名来查询文章
+        Content content  = contentService.getContentBySlug(pagename);
+        if(content == null){
+            return this.render_404();
+        }
+        //文章是否允许评论
+        if(content.getAllowComment() == 1){
+            PageInfo<Comment> commentPageInfo = commentService.getCommentsByContentId(content.getCid(),Integer.parseInt(coid),6);
+            request.setAttribute("comments",commentPageInfo);
+        }
+        request.setAttribute("article",content);
+        if(!checkHitsFrequency(request,String.valueOf(content.getCid()))){
+            //更新文章的点击量
+            updateArticleHit(content.getCid(),content.getHits());
+        }
+        return this.render("page");
+    }
+
+
+
+
+    /**
+     * @param cid
+     * @param chits
+     */
     private void updateArticleHit(Integer cid,Integer chits){
         if(chits == 0 || chits == null){
             chits = 0;

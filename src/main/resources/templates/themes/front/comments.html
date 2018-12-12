@@ -64,7 +64,7 @@
                                     <div class="comment-meta">
                                         <time class="comment-time" th:text="${commons.fmtdate(comment.created)}"></time>
                                         <span class="comment-reply">
-                                            <a rel="nofollow" th:onclick="'javascript:TaleComment.reply(\''+${comment.coid}+'\',\''+'@'+${comment.author}+'\')'">回复</a>
+                                            <a rel="nofollow" th:onclick="'javascript:TaleComment.reply(\''+[${comment.coid}]+'\',\''+'@'+[${comment.author}]+'\')'">回复</a>
                                         </span>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                             <div class="comment-meta">
                                                 <time class="comment-time" th:text="${commons.fmtdate(childComments.created)}"></time>
                                                 <span class="comment-reply">
-                                                    <a rel="nofollow" th:onclick="'javascript:TaleComment.reply(\''+${comment.coid}+'\',\''+'@'+${childComments.author}+'\')'">回复</a>
+                                                    <a rel="nofollow" th:onclick="'javascript:TaleComment.reply(\''+[${comment.author}]+'\',\''+'@'+[${childComments.author}]+'\')'">回复</a>-->
                                                 </span>
                                             </div>
                                         </div>

@@ -24,22 +24,20 @@ public class SiteService  {
 
     public MapCache mapCache = new MapCache();
 
-
     /**
      * 查询归档
-     * @return
      */
     public List<Archive> getArchives(){
-        List<Archive> archiveList = contentMapper.selectArchive();
+        List<Archive> archiveList = contentMapper.getArchives(Types.ARTICLE,Types.PUBLISH);
         if(archiveList != null){
             for(Archive archive : archiveList){
                 String date = archive.getDate();
                 Date sd = DateKit.dateFormat(date,"yyyy年MM月");
-                //开始时间和结束时间
+                //开始时间和结束时间：（猜测是每个月的1号的unxi  到31天后的unix）debug一下
                 int start = DateKit.getUnixTimeByDate(sd);
                 int end = DateKit.getUnixTimeByDate(DateKit.dateAdd(DateKit.INTERVAL_MONTH,sd,1)) - 1;
                 //
-                List<Content> contentList = contentMapper.getContentByConditions(Types.ARTICLE,Types.PUBLISH,start,end);
+                List<Content> contentList = contentMapper.getContentsByConditions(Types.ARTICLE,Types.PUBLISH,start,end);
                 archive.setArticles(contentList);
             }
         }

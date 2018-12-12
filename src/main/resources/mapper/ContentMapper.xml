@@ -88,4 +88,20 @@
         where cid = #{cid,jdbcType=INTEGER}
     </update>
 
+    <!--查询归档，这里mapper只是绑定对应的接口，然而返回结果自己控制-->
+    <resultMap id="archiveMap" type="com.lwx.mystory.model.dto.Archive">
+        <id column="date" property="date"></id>
+        <result column="count" property="count"/>
+    </resultMap>
+    <select id="getArchives" resultMap="archiveMap">
+        select from_unixtime(created,'%Y年%m月') as date,count(*) as count from t_contents where type = #{type} and status = #{status} group by date order by date desc
+    </select>
+
+    <select id="getContentsByConditions" resultMap="BaseResultMap">
+        select cid,slug,title,created from t_contents where <![CDATA[ type = #{type} and status = #{status} and created > #{startTime} and created < #{endTime} ]]>
+    </select>
+
+    <select id="getContentBySlug" resultMap="BaseResultMap">
+        select * from t_contents where slug = #{slug}
+    </select>
 </mapper>

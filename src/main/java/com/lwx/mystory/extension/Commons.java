@@ -32,9 +32,9 @@ import java.util.Map;
 @Component
 public class Commons {
     public static String THEME  = "themes/front";
+    private static String GRAVATORURL = "https://www.gravatar.com/avatar/";
 
     private static IOptionService optionService;
-
     @Autowired
     private IContentService contentService;
     @Autowired
@@ -72,7 +72,6 @@ public class Commons {
 
     /**
      * 返回主题URL
-     *
      * @return
      */
     public static String theme_url() {
@@ -247,5 +246,16 @@ public class Commons {
             return TaleUtils.mdToHtml(value);
         }
         return "";
+    }
+    /**
+     *根据ip来返回不同的头像
+     */
+    public static String gravatar(String ip){
+        if(StringUtils.isBlank(ip)){
+            ip = "449246146@qq.com";
+        }
+        String hash = TaleUtils.MD5encode(ip);
+        return GRAVATORURL+ hash + ".png";
+
     }
 }

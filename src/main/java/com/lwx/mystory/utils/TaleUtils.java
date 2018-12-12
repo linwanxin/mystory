@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -89,4 +91,29 @@ public class TaleUtils {
         return file.getAbsolutePath() + "/";
     }
 
+    /**
+     *MD5加密字符串
+     */
+    public static String MD5encode(String source){
+        if(StringUtils.isBlank(source)){
+            return null;
+        }
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte [] array = new byte[0];
+        try {
+            array = md.digest(source.getBytes("CP1252"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        StringBuffer sb = new StringBuffer();
+        for(byte b : array){
+            sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1,3));
+        }
+        return sb.toString();
+    }
 }

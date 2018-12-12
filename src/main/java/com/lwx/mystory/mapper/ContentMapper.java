@@ -27,7 +27,7 @@ public interface ContentMapper {
      * 查询归档文章
      * @return
      */
-    List<Archive> selectArchive();
+    List<Archive> getArchives(@Param("type") String type,@Param("status") String status);
 
     /**
      * 根据特定条件查询文章
@@ -37,7 +37,7 @@ public interface ContentMapper {
      * @param endTime
      * @return
      */
-    List<Content> getContentByConditions(@Param("type") String type,@Param("status") String status,@Param("startTime") Integer startTime,@Param("endTime") Integer endTime);
+    List<Content> getContentsByConditions(@Param("type") String type,@Param("status") String status,@Param("startTime") Integer startTime,@Param("endTime") Integer endTime);
 
     /**
      * 根据文章ID获取文章
@@ -47,6 +47,8 @@ public interface ContentMapper {
     Content getContentById(@Param("cid") Integer cid);
 
     boolean updateContent(Content content);
+
+    Content getContentBySlug(@Param("slug") String slug);
 
 
 }
