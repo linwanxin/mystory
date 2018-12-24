@@ -2,37 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lwx.mystory.mapper.CommentMapper">
     <resultMap id="BaseResultMap" type="com.lwx.mystory.model.entity.Comment">
-        <id column="coid" jdbcType="INTEGER" property="coid" />
-        <result column="cid" jdbcType="INTEGER" property="cid" />
-        <result column="created" jdbcType="INTEGER" property="created" />
-        <result column="author" jdbcType="VARCHAR" property="author" />
-        <result column="author_id" jdbcType="INTEGER" property="author_id" />
-        <result column="owner_id" jdbcType="INTEGER" property="owner_id" />
-        <result column="created" jdbcType="INTEGER" property="created" />
-        <result column="mail" jdbcType="INTEGER" property="mail" />
-        <result column="url" jdbcType="INTEGER" property="url" />
-        <result column="ip" jdbcType="VARCHAR" property="ip" />
-        <result column="agent" jdbcType="VARCHAR" property="agent" />
-        <result column="content" jdbcType="VARCHAR" property="content" />
-        <result column="type" jdbcType="VARCHAR" property="type" />
-        <result column="status" jdbcType="VARCHAR" property="status" />
-        <result column="parent" jdbcType="VARCHAR" property="parent" />
-        <collection property="commentsList" select="getChildsCommentsByParent" column="{parent=coid}" ofType="com.lwx.mystory.model.entity.Comment">
-            <id column="coid" jdbcType="INTEGER" property="coid" />
-            <result column="cid" jdbcType="INTEGER" property="cid" />
-            <result column="created" jdbcType="INTEGER" property="created" />
-            <result column="author" jdbcType="VARCHAR" property="author" />
-            <result column="author_id" jdbcType="INTEGER" property="author_id" />
-            <result column="owner_id" jdbcType="INTEGER" property="owner_id" />
-            <result column="created" jdbcType="INTEGER" property="created" />
-            <result column="mail" jdbcType="INTEGER" property="mail" />
-            <result column="url" jdbcType="INTEGER" property="url" />
-            <result column="ip" jdbcType="VARCHAR" property="ip" />
-            <result column="agent" jdbcType="VARCHAR" property="agent" />
-            <result column="content" jdbcType="VARCHAR" property="content" />
-            <result column="type" jdbcType="VARCHAR" property="type" />
-            <result column="status" jdbcType="VARCHAR" property="status" />
-            <result column="parent" jdbcType="VARCHAR" property="parent" />
+        <id column="coid" jdbcType="INTEGER" property="coid"/>
+        <result column="cid" jdbcType="INTEGER" property="cid"/>
+        <result column="created" jdbcType="INTEGER" property="created"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="author_id" jdbcType="INTEGER" property="author_id"/>
+        <result column="owner_id" jdbcType="INTEGER" property="owner_id"/>
+        <result column="created" jdbcType="INTEGER" property="created"/>
+        <result column="mail" jdbcType="INTEGER" property="mail"/>
+        <result column="url" jdbcType="INTEGER" property="url"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="agent" jdbcType="VARCHAR" property="agent"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="parent" jdbcType="VARCHAR" property="parent"/>
+        <collection property="commentsList" select="getChildsCommentsByParent" column="{parent=coid}"
+                    ofType="com.lwx.mystory.model.entity.Comment">
+            <id column="coid" jdbcType="INTEGER" property="coid"/>
+            <result column="cid" jdbcType="INTEGER" property="cid"/>
+            <result column="created" jdbcType="INTEGER" property="created"/>
+            <result column="author" jdbcType="VARCHAR" property="author"/>
+            <result column="author_id" jdbcType="INTEGER" property="author_id"/>
+            <result column="owner_id" jdbcType="INTEGER" property="owner_id"/>
+            <result column="created" jdbcType="INTEGER" property="created"/>
+            <result column="mail" jdbcType="INTEGER" property="mail"/>
+            <result column="url" jdbcType="INTEGER" property="url"/>
+            <result column="ip" jdbcType="VARCHAR" property="ip"/>
+            <result column="agent" jdbcType="VARCHAR" property="agent"/>
+            <result column="content" jdbcType="VARCHAR" property="content"/>
+            <result column="type" jdbcType="VARCHAR" property="type"/>
+            <result column="status" jdbcType="VARCHAR" property="status"/>
+            <result column="parent" jdbcType="VARCHAR" property="parent"/>
         </collection>
     </resultMap>
 
@@ -47,4 +48,18 @@
     <select id="getCommentsByContentId" resultMap="BaseResultMap">
         select * from t_comments where cid = #{cid} and status = #{status} and parent = '0' order by created desc
     </select>
+
+    <insert id="saveComment" parameterType="com.lwx.mystory.model.entity.Comment" useGeneratedKeys="true" keyProperty="coid">
+           insert into t_comments (coid, cid, created,
+                                author, author_id, owner_id,
+                                mail, url, ip, agent,
+                                type, status, parent,
+                                content)
+        values (#{coid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{created,jdbcType=INTEGER},
+                #{author,jdbcType=VARCHAR}, #{author_id,jdbcType=INTEGER}, #{owner_id,jdbcType=INTEGER},
+                #{mail,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
+                #{agent,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+                #{parent,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+    </insert>
+
 </mapper>

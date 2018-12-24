@@ -18,6 +18,7 @@ public interface Types {
     String HITS_FREQUENCY = "hits:frequency";
 
 
-
     String VISIT_COUNT = "visit_count";
+
+    String COMMENTS_FREQUENCY = "comments:frequency";
 }

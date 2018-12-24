@@ -42,11 +42,20 @@
                     <div class="col-md-12">
                         <form id="articleForm" role="form" novalidate="novalidate">
                             <input type="hidden" name="categories" id="categories"/>
-                            <input type="hidden" name="cid" th:value="${contents!=null and contents.cid!=null}?${contents.cid}: ''" id="cid"/>
-                            <input type="hidden" name="status" th:value="${contents!=null and contents.status !=null}?${contents.status}: 'publish'" id="status"/>
-                            <input type="hidden" name="allowComment" th:value="${contents!=null and contents.allowComment !=null}?${contents.allowComment}: 1" id="allow_comment"/>
-                            <input type="hidden" name="allowPing" th:value="${contents!=null and contents.allowPing !=null}?${contents.allowPing}: 1" id="allow_ping"/>
-                            <input type="hidden" name="allowFeed" th:value="${contents!=null and contents.allowFeed !=null}?${contents.allowFeed}: 1" id="allow_feed"/>
+                            <input type="hidden" name="cid"
+                                   th:value="${contents!=null and contents.cid!=null}?${contents.cid}: ''" id="cid"/>
+                            <input type="hidden" name="status"
+                                   th:value="${contents!=null and contents.status !=null}?${contents.status}: 'publish'"
+                                   id="status"/>
+                            <input type="hidden" name="allowComment"
+                                   th:value="${contents!=null and contents.allowComment !=null}?${contents.allowComment}: 1"
+                                   id="allow_comment"/>
+                            <input type="hidden" name="allowPing"
+                                   th:value="${contents!=null and contents.allowPing !=null}?${contents.allowPing}: 1"
+                                   id="allow_ping"/>
+                            <input type="hidden" name="allowFeed"
+                                   th:value="${contents!=null and contents.allowFeed !=null}?${contents.allowFeed}: 1"
+                                   id="allow_feed"/>
                             <input type="hidden" name="content" id="content-editor"/>
 
                             <div class="form-group col-md-6" style="padding: 0 10px 0 0;">

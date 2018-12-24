@@ -2,16 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lwx.mystory.mapper.MetaMapper">
     <resultMap id="BaseResultMap" type="com.lwx.mystory.model.entity.Meta">
-        <id column="mid" jdbcType="INTEGER" property="mid" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="slug" jdbcType="VARCHAR" property="slug" />
-        <result column="type" jdbcType="VARCHAR" property="type" />
-        <result column="description" jdbcType="VARCHAR" property="description" />
-        <result column="sort" jdbcType="INTEGER" property="sort" />
-        <result column="parent" jdbcType="INTEGER" property="parent" />
+        <id column="mid" jdbcType="INTEGER" property="mid"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="slug" jdbcType="VARCHAR" property="slug"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="parent" jdbcType="INTEGER" property="parent"/>
     </resultMap>
 
-    <select id="getMeta" resultMap="BaseResultMap">
+    <resultMap id="MetaEX" type="com.lwx.mystory.model.entity.MetaEx" extends="BaseResultMap">
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getMetaByTypeAndName" resultMap="BaseResultMap">
         select * from t_metas where type = #{type} and name = #{name}
     </select>
+
+
+    <select id="getMetasByType" resultMap="BaseResultMap">
+        select * from t_metas where type = #{type} order by sort desc
+    </select>
+
+
+    <select id="countWithSql" resultType="java.lang.Integer">
+        select count(0) from t_contents a left join t_relationships b on a.cid = b.cid
+        where b.mid = #{value} and a.status = 'publish' and a.type = 'post'
+    </select>
+
+    <select id="getMetasBySql" resultType="MetaEx">
+        select a.*,count(b.cid) as count
+        from t_metas a left join t_relationships b on a.mid = b.mid
+        where a.type = #{type} group by a.mid order by count desc ,a.mid desc
+    </select>
+
 </mapper>

@@ -23,4 +23,10 @@ public interface CommentMapper {
      * Date 2018/5/10 14:14
      */
     List<Comment> selectCommentsByAuthorId(@Param("authorId") Integer authorId);
+
+
+    /**
+     * 保存评论
+     */
+    int saveComment(Comment comment);
 }

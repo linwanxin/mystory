@@ -21,7 +21,7 @@ public class Comment {
     private String author;
 
     //评论所属用户ID
-    private Integer author_id ;
+    private Integer author_id;
     //评论所属内容作者id
     private Integer owner_id;
 

@@ -1,6 +1,7 @@
 package com.lwx.mystory.service;
 
 import com.github.pagehelper.PageInfo;
+import com.lwx.mystory.extension.Commons;
 import com.lwx.mystory.model.entity.Comment;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public interface ICommentService {
     /**
      * 查询全部评论数量
+     *
      * @return
      */
     int getCommentCount();
@@ -21,18 +23,23 @@ public interface ICommentService {
 
     /**
      * 获取最新的评论
+     *
      * @param page
      * @param limit
      * @return
      */
-    PageInfo<Comment> getNewComments(Integer page,Integer limit);
+    PageInfo<Comment> getNewComments(Integer page, Integer limit);
 
     int saveComment(Comment comment);
 
     String delCommentById(Integer id);
 
-    PageInfo<Comment> getCommentsByContentId(Integer contentId,Integer page,Integer limit);
+    PageInfo<Comment> getCommentsByContentId(Integer contentId, Integer page, Integer limit);
 
     List<Comment> selectCommentsByAuthorId(Integer authorId);
 
+    /**
+     * 评论增加
+     */
+    String insertComment(Comment comment);
 }

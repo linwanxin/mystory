@@ -14,6 +14,7 @@ public interface IMetaService {
 
     /**
      * 根据类型获取友链
+     *
      * @param type
      * @return
      */
@@ -21,26 +22,27 @@ public interface IMetaService {
 
     /**
      * 根据ID删除meta
+     *
      * @param id
      */
     void delMetaById(Integer id);
 
     /**
      * 根据id获取meta
+     *
      * @param id
      */
     Meta getMetaById(Integer id);
 
-    void saveMeta(String type,String cname,Integer mid);
+    void saveMeta(String type, String cname, Integer mid);
 
     /**
      * 根据条件查meta
+     *
      * @param type
-     * @param orderby
      * @param limit
-     * @return
      */
-    List<Meta> getMetaList(String type,String orderby,Integer limit);
+    List<Meta> getMetas(String type, Integer limit);
 
-    Meta getMeta(String type,String name);
+    Meta getMetaByTypeAndName(String type, String name);
 }

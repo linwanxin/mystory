@@ -8,9 +8,13 @@
             <a th:href="${commons.permalink(article)}" th:text="${article.title}" data-no-instant=""></a>
         </h1>
         <div class="post-data">
-            <time th:datetime="${commons.fmtdate(article.created)}" itemprop="datePublished" th:text="'发布于 '+ ${commons.fmtdate(article.created)}"></time>
-            / <th:block th:utext="${commons.show_categories(article.categories)}"/> / <a href="#comments" th:text="${article.commentsNum ?: 0}+' 条评论'"></a> /
-            <th:block th:text="${article.hits}"/>人围观
+            <time th:datetime="${commons.fmtdate(article.created)}" itemprop="datePublished"
+                  th:text="'发布于 '+ ${commons.fmtdate(article.created)}"></time>
+            /
+            <th:block th:utext="${commons.show_categories(article.categories)}"/>
+            / <a href="#comments" th:text="${article.commentsNum ?: 0}+' 条评论'"></a> /
+            <th:block th:text="${article.hits}"/>
+            人围观
         </div>
     </div>
     <div id="post-content" class="post-content" itemprop="articleBody">
@@ -20,7 +24,8 @@
             作者：yulenka<br/>
             出处：www.yulenka.com<br/>
             版权所有，欢迎保留原文链接进行转载 :)<br/>
-            最后编辑时间为：<th:block th:text="${commons.fmtdate(article.modified, 'yyyy-MM-dd HH:mm')}"/>
+            最后编辑时间为：
+            <th:block th:text="${commons.fmtdate(article.modified, 'yyyy-MM-dd HH:mm')}"/>
         </p>
     </div>
 </article>

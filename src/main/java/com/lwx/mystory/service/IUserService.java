@@ -10,7 +10,7 @@ import com.lwx.mystory.model.entity.Users;
 public interface IUserService {
 
 
-    Users userLogin(String userName,String password);
+    Users userLogin(String userName, String password);
 
     void saveUser(Users user);
 

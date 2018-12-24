@@ -19,7 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private BaseInterceptor baseInterceptor;
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(baseInterceptor);
     }
 
@@ -28,7 +28,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * @param registry
      */
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**").addResourceLocations("file:" + TaleUtils.getUplodFilePath() + "upload/");
         //super.addResourceHandlers(registry);
     }

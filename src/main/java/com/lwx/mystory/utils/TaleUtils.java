@@ -20,6 +20,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Descripiton: tale工具类
@@ -29,27 +31,32 @@ import java.util.List;
 public class TaleUtils {
     private static final Logger logger = LoggerFactory.getLogger(TaleUtils.class);
 
+    //添加Enail正则
+    private static final Pattern VALI_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",Pattern.CASE_INSENSITIVE);
+
     /**
      * markdown解析器
      */
     private static Parser parser = Parser.builder().build();
+
     /**
-     *提取html中的文字
+     * 提取html中的文字
      */
-    public static String htmlToText(String html){
-        if(StringUtils.isNotBlank(html)){
+    public static String htmlToText(String html) {
+        if (StringUtils.isNotBlank(html)) {
             return html.replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " ");
         }
         return "";
     }
+
     /**
      * markdown转换为html
      */
-    public static String mdToHtml(String markdown){
-        if(StringUtils.isBlank(markdown)){
+    public static String mdToHtml(String markdown) {
+        if (StringUtils.isBlank(markdown)) {
             return "";
         }
-        List<Extension> extensions =  Arrays.asList(TablesExtension.create());
+        List<Extension> extensions = Arrays.asList(TablesExtension.create());
         Parser parser = Parser.builder().extensions(extensions).build();
         Node document = parser.parse(markdown);
         HtmlRenderer renderer = HtmlRenderer.builder().extensions(extensions).build();
@@ -92,10 +99,10 @@ public class TaleUtils {
     }
 
     /**
-     *MD5加密字符串
+     * MD5加密字符串
      */
-    public static String MD5encode(String source){
-        if(StringUtils.isBlank(source)){
+    public static String MD5encode(String source) {
+        if (StringUtils.isBlank(source)) {
             return null;
         }
         MessageDigest md = null;
@@ -104,16 +111,36 @@ public class TaleUtils {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        byte [] array = new byte[0];
+        byte[] array = new byte[0];
         try {
             array = md.digest(source.getBytes("CP1252"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         StringBuffer sb = new StringBuffer();
-        for(byte b : array){
-            sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1,3));
+        for (byte b : array) {
+            sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
         }
         return sb.toString();
     }
+    /**
+     * 判断是否是邮箱
+     */
+    public static boolean isEmail(String email){
+       Matcher matcher =  VALI_EMAIL_ADDRESS_REGEX.matcher(email);
+       return matcher.find();
+    }
+    /**
+     * 替换HTML脚本
+     */
+    public static String cleanXSS(String value){
+        value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
+        value = value.replaceAll("'", "&#39;");
+        value = value.replaceAll("eval\\((.*)\\)", "");
+        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
+        value = value.replaceAll("script", "");
+        return value;
+    }
+
 }

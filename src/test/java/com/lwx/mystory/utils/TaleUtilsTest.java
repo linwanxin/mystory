@@ -2,7 +2,8 @@ package com.lwx.mystory.utils;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.UUID;
+
 
 /**
  * @Descripiton:
@@ -13,7 +14,29 @@ public class TaleUtilsTest {
 
     @Test
     public void MD5encode() {
-        String  ip = "44924646@qq.com";
+        String ip = "44924646@qq.com";
         System.out.println(TaleUtils.MD5encode(ip));
     }
+
+    /**
+     * 测试UUID是不是requestNonce（随机数）
+     */
+    @Test
+    public void nonce() {
+        String s = UUID.randomUUID().toString();
+        String s2 = s.replaceAll("-", "");
+        System.out.println(s);
+        System.out.println(s2);
+        System.out.println("70476487149327779303600443043791");
+    }
+
+    /**
+     * 验证结果是java和py是一致的！
+     */
+//    @Test
+//    public void sha1(){
+//        String genSigrn = "genSign = :/v3/post/recommendedfirstPostId359087679topPostId3588969359047334W1LlVeMSNgoDACDt8LrjOpU410000003Yh@40@w^5P2s201812171745f4debb2698754f86b71890a5524376943018";
+//
+//        System.out.println(DigestUtils.sha1Hex(genSigrn));
+//    }
 }

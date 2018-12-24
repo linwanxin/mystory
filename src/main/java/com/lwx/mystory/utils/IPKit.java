@@ -8,6 +8,7 @@ public class IPKit {
 
     /**
      * 获取客户端ip地址
+     *
      * @param request
      * @return
      */
@@ -32,7 +33,7 @@ public class IPKit {
         return ip;
     }
 
-    public static String getRealIp(){
+    public static String getRealIp() {
         String ip = null;
         return ip;
     }

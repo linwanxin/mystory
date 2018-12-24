@@ -15,9 +15,9 @@
                 }
                 return el;
             },
-            reply: function (coid,author) {
+            reply: function (coid, author) {
                 $('#comment-form input[name=coid]').val(coid);
-                $('#comment-form textarea[name=text]').val(author+" ");
+                $('#comment-form textarea[name=text]').val(author + " ");
                 $("html,body").animate({scrollTop: $('div.comment-container').offset().top}, 500);
                 $('#comment-form #textarea').focus();
             },
@@ -44,6 +44,7 @@
             }
         };
     })();
+
     function getCommentCookie(name) {
         var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
         if (arr = document.cookie.match(reg))
@@ -51,11 +52,13 @@
         else
             return null;
     }
+
     function addCommentInputValue() {
         document.getElementById('author').value = getCommentCookie('tale_remember_author');
         document.getElementById('mail').value = getCommentCookie('tale_remember_mail');
         document.getElementById('url').value = getCommentCookie('tale_remember_url');
     }
+
     addCommentInputValue();
     /*]]>*/
 </script>

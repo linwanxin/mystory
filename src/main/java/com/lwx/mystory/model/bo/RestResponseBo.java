@@ -28,13 +28,14 @@ public class RestResponseBo<T> {
     private long timestamp;
 
     public RestResponseBo() {
-        this.timestamp = System.currentTimeMillis()/1000;
+        this.timestamp = System.currentTimeMillis() / 1000;
     }
 
-    public RestResponseBo(boolean success){
-        this.timestamp = System.currentTimeMillis()/1000;
+    public RestResponseBo(boolean success) {
+        this.timestamp = System.currentTimeMillis() / 1000;
         this.success = success;
     }
+
     public RestResponseBo(boolean success, T payload) {
         this.timestamp = System.currentTimeMillis() / 1000;
         this.success = success;
@@ -47,6 +48,7 @@ public class RestResponseBo<T> {
         this.payload = payload;
         this.code = code;
     }
+
     public RestResponseBo(boolean success, String msg) {
         this.timestamp = System.currentTimeMillis() / 1000;
         this.success = success;
@@ -60,16 +62,18 @@ public class RestResponseBo<T> {
         this.code = code;
     }
 
-    public static RestResponseBo ok(){
+    public static RestResponseBo ok() {
         return new RestResponseBo(true);
     }
 
-    public static <T>RestResponseBo ok(T payload){
-        return new RestResponseBo(true,payload);
+    public static <T> RestResponseBo ok(T payload) {
+        return new RestResponseBo(true, payload);
     }
+
     public static <T> RestResponseBo ok(int code) {
-        return new RestResponseBo(true,null,code);
+        return new RestResponseBo(true, null, code);
     }
+
     public static <T> RestResponseBo ok(T payload, int code) {
         return new RestResponseBo(true, payload, code);
     }

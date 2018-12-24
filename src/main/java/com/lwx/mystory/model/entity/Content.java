@@ -9,7 +9,7 @@ import lombok.Data;
  **/
 @Data
 public class Content {
-    private Integer cid ;
+    private Integer cid;
     //内容标题
     private String title;
     //内容缩略名

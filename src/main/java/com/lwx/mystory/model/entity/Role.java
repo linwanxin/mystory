@@ -3,7 +3,7 @@ package com.lwx.mystory.model.entity;
 import lombok.Data;
 
 /**
- *用户角色类
+ * 用户角色类
  */
 @Data
 public class Role extends BaseEntity {

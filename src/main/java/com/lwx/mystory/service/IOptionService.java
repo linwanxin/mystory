@@ -13,6 +13,7 @@ import java.util.Map;
 public interface IOptionService {
     /**
      * 根据名字查询配置
+     *
      * @param name
      * @return
      */
@@ -20,14 +21,14 @@ public interface IOptionService {
 
     /**
      * 获取所有的配置
+     *
      * @return
      */
     List<Option> getOptions();
 
-    void saveOrUpdateOption(Map<String,String> options);
+    void saveOrUpdateOption(Map<String, String> options);
 
-    void insertOption(String name,String value);
-
+    void insertOption(String name, String value);
 
 
 }

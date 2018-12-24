@@ -37,19 +37,19 @@ public class BaseInterceptor implements HandlerInterceptor {
 
 
     @Override
-    public  boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
 
         //logger.info("UserAgent: {}",request.getHeader(USER_AGENT));
-        logger.info("用户访问地址：{}，来路地址：{}",uri,IPKit.getIPAddrByRequest(request));
+        logger.info("用户访问地址：{}，来路地址：{}", uri, IPKit.getIPAddrByRequest(request));
 
         return true;
     }
 
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception{
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
         Option ov = optionService.getOptionByName("site_record");
-        request.setAttribute("commons",commons);
-        request.setAttribute("option",ov);
+        request.setAttribute("commons", commons);
+        request.setAttribute("option", ov);
         request.setAttribute("adminCommons", adminCommons);
     }
 

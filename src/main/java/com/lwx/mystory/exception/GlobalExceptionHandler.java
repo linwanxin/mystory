@@ -21,25 +21,27 @@ public class GlobalExceptionHandler {
 
     /**
      * 捕获到相应的异常处理
+     *
      * @param
      * @return
      */
     @ExceptionHandler(value = TipException.class)
-    public String tipException(Exception e){
-        logger.error("find exception:e={}",e.getMessage());
+    public String tipException(Exception e) {
+        logger.error("find exception:e={}", e.getMessage());
         e.printStackTrace();
         return "comm/error_500";
     }
 
     /**
      * 捕获处理无权限的异常
+     *
      * @return
      */
     @ExceptionHandler(value = AuthorizationException.class)
     @ResponseBody
-    public RestResponseBo handleAuthorizationException(){
-        Users user = (Users)SecurityUtils.getSubject().getPrincipal();
-        logger.error("用户："+ user.getUsername() + "进行了一次无权限的操作！");
+    public RestResponseBo handleAuthorizationException() {
+        Users user = (Users) SecurityUtils.getSubject().getPrincipal();
+        logger.error("用户：" + user.getUsername() + "进行了一次无权限的操作！");
         return RestResponseBo.fail("Sorry!您无此权限！");
     }
 }

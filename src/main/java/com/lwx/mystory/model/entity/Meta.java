@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Meta {
 
-    private Integer mid ;
+    private Integer mid;
 
     private String name;
     //项目缩略名

@@ -1,5 +1,7 @@
 package com.lwx.mystory.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lwx.mystory.mapper.MetaMapper;
 import com.lwx.mystory.model.entity.Meta;
 import com.lwx.mystory.service.IMetaService;
@@ -20,7 +22,7 @@ public class MetaServiceImpl implements IMetaService {
 
     @Override
     public List<Meta> getMetasByType(String type) {
-        return null;
+        return metaMapper.getMetasByType(type);
     }
 
     @Override
@@ -39,12 +41,15 @@ public class MetaServiceImpl implements IMetaService {
     }
 
     @Override
-    public List<Meta> getMetaList(String type, String orderby, Integer limit) {
-        return null;
+    public List<Meta> getMetas(String type, Integer limit) {
+        PageHelper.startPage(1, limit);
+        List<Meta> metas = metaMapper.getMetasBySql(type);
+        PageInfo<Meta> pageInfo = new PageInfo(metas);
+        return pageInfo.getList();
     }
 
     @Override
-    public Meta getMeta(String type, String name) {
-       return  metaMapper.getMate(type,name);
+    public Meta getMetaByTypeAndName(String type, String name) {
+        return metaMapper.getMetaByTypeAndName(type, name);
     }
 }

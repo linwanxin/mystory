@@ -2,24 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lwx.mystory.mapper.ContentMapper">
     <resultMap id="BaseResultMap" type="com.lwx.mystory.model.entity.Content">
-        <id column="cid" jdbcType="INTEGER" property="cid" />
-        <result column="title" jdbcType="INTEGER" property="title" />
-        <result column="slug" jdbcType="VARCHAR" property="slug" />
-        <result column="created" jdbcType="INTEGER" property="created" />
-        <result column="modified" jdbcType="INTEGER" property="modified" />
-        <result column="content" jdbcType="VARCHAR" property="content" />
-        <result column="author_id" jdbcType="INTEGER" property="authorId" />
-        <result column="hits" jdbcType="INTEGER" property="hits" />
-        <result column="type" jdbcType="VARCHAR" property="type" />
-        <result column="fmt_type" jdbcType="VARCHAR" property="fmtType" />
-        <result column="thumb_img" jdbcType="VARCHAR" property="thumbImg" />
-        <result column="tags" jdbcType="VARCHAR" property="tags" />
-        <result column="categories" jdbcType="VARCHAR" property="categories" />
-        <result column="status" jdbcType="VARCHAR" property="status" />
-        <result column="comments_num" jdbcType="INTEGER" property="commentsNum" />
-        <result column="allow_comment" jdbcType="INTEGER" property="allowComment" />
-        <result column="allow_ping" jdbcType="INTEGER" property="allowPing" />
-        <result column="allow_feed" jdbcType="INTEGER" property="allowFeed" />
+        <id column="cid" jdbcType="INTEGER" property="cid"/>
+        <result column="title" jdbcType="INTEGER" property="title"/>
+        <result column="slug" jdbcType="VARCHAR" property="slug"/>
+        <result column="created" jdbcType="INTEGER" property="created"/>
+        <result column="modified" jdbcType="INTEGER" property="modified"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="author_id" jdbcType="INTEGER" property="authorId"/>
+        <result column="hits" jdbcType="INTEGER" property="hits"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="fmt_type" jdbcType="VARCHAR" property="fmtType"/>
+        <result column="thumb_img" jdbcType="VARCHAR" property="thumbImg"/>
+        <result column="tags" jdbcType="VARCHAR" property="tags"/>
+        <result column="categories" jdbcType="VARCHAR" property="categories"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="comments_num" jdbcType="INTEGER" property="commentsNum"/>
+        <result column="allow_comment" jdbcType="INTEGER" property="allowComment"/>
+        <result column="allow_ping" jdbcType="INTEGER" property="allowPing"/>
+        <result column="allow_feed" jdbcType="INTEGER" property="allowFeed"/>
     </resultMap>
 
     <select id="getContentsByType" resultMap="BaseResultMap">
@@ -94,14 +94,27 @@
         <result column="count" property="count"/>
     </resultMap>
     <select id="getArchives" resultMap="archiveMap">
-        select from_unixtime(created,'%Y年%m月') as date,count(*) as count from t_contents where type = #{type} and status = #{status} group by date order by date desc
+        select from_unixtime(created,'%Y年%m月') as date,count(*) as count from t_contents where type = #{type} and status
+        = #{status} group by date order by date desc
     </select>
 
     <select id="getContentsByConditions" resultMap="BaseResultMap">
-        select cid,slug,title,created from t_contents where <![CDATA[ type = #{type} and status = #{status} and created > #{startTime} and created < #{endTime} ]]>
+        select cid,slug,title,created from t_contents where
+        <![CDATA[ type = #{type} and status = #{status} and created > #{startTime} and created < #{endTime} ]]>
     </select>
 
     <select id="getContentBySlug" resultMap="BaseResultMap">
         select * from t_contents where slug = #{slug}
     </select>
+
+    <select id="getContentsByMetaId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select a.* from t_contents a left join t_relationships b on a.cid = b.cid
+        where b.mid = #{mid} and a.status = 'publish' and a.type = 'post'
+        order by a.created desc
+    </select>
+
+    <select id="getContentsByTitle" resultMap="BaseResultMap">
+        select * from t_contents where title like concat('%',#{title},'%') and type = #{type} and status = #{status}
+    </select>
+
 </mapper>

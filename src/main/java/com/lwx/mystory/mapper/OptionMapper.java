@@ -16,6 +16,7 @@ public interface OptionMapper {
     Option getOptionByName(@Param("name") String name);
 
     List<Option> getOptions();
+
     void saveOption(Option option);
 
     void updateByName(Option option);

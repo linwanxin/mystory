@@ -52,7 +52,8 @@
                                              th:title="${comment.author}"
                                              width="80" height="80"/>
                                         <span class="comment-author">
-                                            <a th:href="${comment.url}" target="_blank" rel="external nofollow" th:text="${comment.author}"></a>
+                                            <a th:href="${comment.url}" target="_blank" rel="external nofollow"
+                                               th:text="${comment.author}"></a>
                                         </span>
                                     </div>
                                     <div class="comment-content">
@@ -64,21 +65,24 @@
                                     <div class="comment-meta">
                                         <time class="comment-time" th:text="${commons.fmtdate(comment.created)}"></time>
                                         <span class="comment-reply">
-                                            <a rel="nofollow" th:onclick="'javascript:TaleComment.reply(\''+[${comment.coid}]+'\',\''+'@'+[${comment.author}]+'\')'">回复</a>
+                                            <a rel="nofollow"
+                                               th:onclick="'javascript:TaleComment.reply(\''+[${comment.coid}]+'\',\''+'@'+[${comment.author}]+'\')'">回复</a>
                                         </span>
                                     </div>
                                 </div>
 
                                 <th:block th:if="${comment.commentsList.size() != 0}">
                                     <th:block th:each="childComments :${comment.commentsList}">
-                                        <div class="comment-view" th:id="'comment-'+${childComments.coid}" style="margin-left: 50px">
+                                        <div class="comment-view" th:id="'comment-'+${childComments.coid}"
+                                             style="margin-left: 50px">
                                             <div class="comment-header">
                                                 <img class="avatar"
                                                      th:src="@{${commons.gravatar(childComments.ip)}(d='wavatar',s='40')}"
                                                      th:title="${childComments.author}"
                                                      width="80" height="80"/>
                                                 <span class="comment-author">
-                                                    <a th:href="${childComments.url}" target="_blank" rel="external nofollow" th:text="${childComments.author}"></a>
+                                                    <a th:href="${childComments.url}" target="_blank"
+                                                       rel="external nofollow" th:text="${childComments.author}"></a>
                                                 </span>
                                             </div>
                                             <div class="comment-content">
@@ -88,9 +92,11 @@
                                                 <p th:utext="${commons.article(childComments.content)}"></p>
                                             </div>
                                             <div class="comment-meta">
-                                                <time class="comment-time" th:text="${commons.fmtdate(childComments.created)}"></time>
+                                                <time class="comment-time"
+                                                      th:text="${commons.fmtdate(childComments.created)}"></time>
                                                 <span class="comment-reply">
-                                                    <a rel="nofollow" th:onclick="'javascript:TaleComment.reply(\''+[${comment.author}]+'\',\''+'@'+[${childComments.author}]+'\')'">回复</a>-->
+                                                    <a rel="nofollow"
+                                                       th:onclick="'javascript:TaleComment.reply(\''+[${comment.author}]+'\',\''+'@'+[${childComments.author}]+'\')'">回复</a>-->
                                                 </span>
                                             </div>
                                         </div>

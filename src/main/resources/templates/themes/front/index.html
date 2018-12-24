@@ -9,7 +9,8 @@
             <div class="post-list-item" th:each="article: ${articles.list}">
                 <div class="post-list-item-container">
 
-                    <div class="item-thumb  bg-deepgrey" th:style="'background-image:url('+@{${commons.show_thumb(article)}}+');'"></div>
+                    <div class="item-thumb  bg-deepgrey"
+                         th:style="'background-image:url('+@{${commons.show_thumb(article)}}+');'"></div>
 
                     <a th:href="${commons.permalink(article)}+'/1'">
                         <div class="item-desc">

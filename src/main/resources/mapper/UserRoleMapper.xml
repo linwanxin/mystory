@@ -10,21 +10,21 @@
 
     <insert id="addRoleForUser">
         INSERT INTO t_user_role (
-            user_id,
-            rid)
+        user_id,
+        rid)
         VALUES (
-            #{userId,jdbcType=INTEGER},
-            #{roleId,jdbcType=INTEGER})
+        #{userId,jdbcType=INTEGER},
+        #{roleId,jdbcType=INTEGER})
     </insert>
 
     <select id="findByUserName" resultMap="role">
         SELECT
-            r.id,
-            r.name,
-            r.description
+        r.id,
+        r.name,
+        r.description
         FROM t_role r
-            LEFT JOIN t_user_role ur ON (r.id = ur.rid)
-            LEFT JOIN t_users u ON (u.id = ur.user_id)
+        LEFT JOIN t_user_role ur ON (r.id = ur.rid)
+        LEFT JOIN t_users u ON (u.id = ur.user_id)
         WHERE u.username = #{userName}
     </select>
 
