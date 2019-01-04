@@ -99,4 +99,13 @@ public class CommentServiceImpl implements ICommentService {
 
         return WebConstant.SUCCESS_RESULT;
     }
+
+
+    @Override
+    public PageInfo<Comment> getRecentComments(Integer page, Integer limit) {
+        PageHelper.startPage(page,limit);
+        List<Comment> comments = commentMapper.getRecentComments();
+        PageInfo<Comment> pageInfo = new PageInfo<>(comments);
+        return pageInfo;
+    }
 }

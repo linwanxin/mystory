@@ -62,4 +62,8 @@
                 #{parent,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
     </insert>
 
+    <select id="getRecentComments" resultMap="BaseResultMap">
+        select * from t_comments order by created desc
+    </select>
+
 </mapper>

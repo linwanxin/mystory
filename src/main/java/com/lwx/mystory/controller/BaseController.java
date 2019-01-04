@@ -20,7 +20,7 @@ public class BaseController {
     }
 
     /**
-     * 就在在index中用到，貌似没用！
+     * 就在index中用到，貌似没用！
      * @param request
      * @param title
      * @return

@@ -29,4 +29,7 @@ public interface CommentMapper {
      * 保存评论
      */
     int saveComment(Comment comment);
+
+    //获取最新的评论
+    List<Comment> getRecentComments();
 }

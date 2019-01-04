@@ -1,14 +1,18 @@
 package com.lwx.mystory.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lwx.mystory.mapper.ContentMapper;
 import com.lwx.mystory.model.dto.Archive;
 import com.lwx.mystory.model.dto.Types;
+import com.lwx.mystory.model.entity.Comment;
 import com.lwx.mystory.model.entity.Content;
 import com.lwx.mystory.utils.DateKit;
 import com.lwx.mystory.utils.MapCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,11 +23,15 @@ import java.util.List;
  **/
 @Service
 public class SiteService {
+
     @Autowired
     private ContentMapper contentMapper;
 
-    public MapCache mapCache = new MapCache();
-
+    //后台admin使用
+    @Autowired
+    private ICommentService commentService;
+    @Autowired
+    private IContentService contentService;
     /**
      * 查询归档
      */
@@ -42,6 +50,35 @@ public class SiteService {
             }
         }
         return archiveList;
+    }
+
+    /**
+     * 获取最新收到的10条评论
+     * @return
+     */
+    public List<Comment> getRecentComments(int limit){
+        if(limit < 0 || limit > 10){
+            limit = 10;
+        }
+        PageInfo<Comment> commentPageInfo =  commentService.getRecentComments(1,limit);
+        return commentPageInfo.getList();
+    }
+
+    /**
+     * 获取最近的文章
+     */
+    public List<Content> getContents(String type,int limit){
+        if(limit < 0|| limit > 20){
+            limit = 10;
+        }
+        if(Types.RECENT_ARTICLE.equals(type)){
+            PageHelper.startPage(1,limit);
+            List<Content> contentList = contentService.getContentsByType(Types.ARTICLE,Types.PUBLISH);
+            PageInfo<Content> pageInfo = new PageInfo<>(contentList);
+            return pageInfo.getList();
+        }
+
+        return new ArrayList<>();
     }
 
 }

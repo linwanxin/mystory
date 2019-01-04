@@ -21,4 +21,8 @@ public interface Types {
     String VISIT_COUNT = "visit_count";
 
     String COMMENTS_FREQUENCY = "comments:frequency";
+
+
+    //最近最新的文章
+    String RECENT_ARTICLE = "recent_acticle";
 }

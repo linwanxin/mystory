@@ -42,4 +42,6 @@ public interface ICommentService {
      * 评论增加
      */
     String insertComment(Comment comment);
+
+    PageInfo<Comment> getRecentComments(Integer page,Integer limit);
 }
