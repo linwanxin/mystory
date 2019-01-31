@@ -8,7 +8,9 @@ import java.util.Map;
  * @Date；Created in 9:29 2018/12/2
  **/
 public class WebConstant {
+
     public static Map<String, String> initConfig = new HashMap<>();
+    //设置session的登陆用户
     public static String LOGIN_SESSION_KEY = "login_user";
 
     //最大获取文章条数
@@ -25,11 +27,15 @@ public class WebConstant {
 
     //文章的访问点击频率
     public static Integer HITS_LIMIT_TIME = 900;
-
+    //登陆时校验用户状态是否正常
     public static String STATUS_0 = "0";
 
-    /**
-     * 成功返回
-     */
+     // 成功返回
     public static String SUCCESS_RESULT = "SUCCESS";
+
+    //文章标题最大字数
+    public static int MAX_TITLE_COUNT = 200;
+
+    public static String VISITOR = "访客访问";
+
 }

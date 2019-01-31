@@ -1,7 +1,7 @@
 package com.lwx.mystory.extension;
 
 import com.lwx.mystory.model.entity.Meta;
-import com.lwx.mystory.model.entity.Users;
+import com.lwx.mystory.model.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Component;
 
@@ -49,7 +49,7 @@ public final class AdminCommons {
      * Date 2018/9/7 15:32
      */
     public static String getLoginUserName() {
-        Users user = (Users) SecurityUtils.getSubject().getPrincipal();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (null != user) {
             return user.getUsername();
         }

@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public interface UserRoleMapper {
 
-    List<Role> findByUserName(String userName);
+    List<Role> findByUserName(@Param("userName") String userName);
 
     void addRoleForUser(@Param("userId") String userId, @Param("roleId") String roleId);
 }

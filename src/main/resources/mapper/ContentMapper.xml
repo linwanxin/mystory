@@ -117,4 +117,35 @@
         select * from t_contents where title like concat('%',#{title},'%') and type = #{type} and status = #{status}
     </select>
 
+    <select id="getContentsBySlugType" resultType="java.lang.Long">
+        select count(*) from t_contents where type = #{type} and slug = #{slug}
+    </select>
+
+    <insert id="saveContent" parameterType="com.lwx.mystory.model.entity.Content" useGeneratedKeys="true" keyProperty="cid">
+        insert into t_contents (cid, title, slug,
+        created, modified, author_id,
+        type, status, tags,
+        categories, hits, comments_num,
+        allow_comment, allow_ping, allow_feed,
+        content)
+        values (#{cid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{slug,jdbcType=VARCHAR},
+        #{created,jdbcType=INTEGER}, #{modified,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER},
+        #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR},
+        #{categories,jdbcType=VARCHAR}, #{hits,jdbcType=INTEGER}, #{commentsNum,jdbcType=INTEGER},
+        #{allowComment,jdbcType=INTEGER}, #{allowPing,jdbcType=INTEGER}, #{allowFeed,jdbcType=INTEGER},
+        #{content,jdbcType=LONGVARCHAR})
+    </insert>
+ <!-- resultmap写错了！！写成了resulttype！-->
+    <select id="getContentsByUserId" resultMap="BaseResultMap">
+        select * from t_contents where type = #{type}
+        <if test="userId != -1">
+            and author_id = #{userId,jdbcType = INTEGER}
+        </if>
+        order by created desc
+    </select>
+
+    <delete id="deleteContentById">
+        delete from t_contents where cid = #{id}
+    </delete>
+
 </mapper>

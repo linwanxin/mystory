@@ -1,6 +1,6 @@
 package com.lwx.mystory.controller;
 
-import com.lwx.mystory.model.entity.Users;
+import com.lwx.mystory.model.entity.User;
 import com.lwx.mystory.utils.MapCache;
 import com.lwx.mystory.utils.TaleUtils;
 
@@ -35,7 +35,7 @@ public class BaseController {
         return this;
     }
 
-    public Users user(HttpServletRequest request) {
+    public User user(HttpServletRequest request) {
         return TaleUtils.getLoginUser(request);
     }
 

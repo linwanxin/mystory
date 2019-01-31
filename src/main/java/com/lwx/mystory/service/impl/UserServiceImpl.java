@@ -1,7 +1,7 @@
 package com.lwx.mystory.service.impl;
 
 import com.lwx.mystory.mapper.UserMapper;
-import com.lwx.mystory.model.entity.Users;
+import com.lwx.mystory.model.entity.User;
 import com.lwx.mystory.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,22 +18,36 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     @Override
-    public Users userLogin(String userName, String password) {
+    public User userLogin(String userName, String password) {
         return null;
     }
 
     @Override
-    public void saveUser(Users user) {
+    public void saveUser(User user) {
+    }
 
+    /**
+     * 通过用户名获取用户
+     * @param userName
+     * @return
+     */
+    @Override
+    public User getUserByUserName(String userName) {
+        return userMapper.getUserByUserName(userName);
     }
 
     @Override
-    public Users getUserByUserName(String userName) {
+    public User getUserById(Integer id) {
         return null;
     }
 
-    @Override
-    public Users getUserById(Integer id) {
-        return null;
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    public boolean updateUser(User user){
+        return userMapper.updateUser(user);
     }
+
 }

@@ -1,6 +1,6 @@
 package com.lwx.mystory.service;
 
-import com.lwx.mystory.model.entity.Users;
+import com.lwx.mystory.model.entity.User;
 
 /**
  * @Descripiton:
@@ -10,12 +10,16 @@ import com.lwx.mystory.model.entity.Users;
 public interface IUserService {
 
 
-    Users userLogin(String userName, String password);
+    User userLogin(String userName, String password);
 
-    void saveUser(Users user);
+    void saveUser(User user);
 
 
-    Users getUserByUserName(String userName);
+    User getUserByUserName(String userName);
 
-    Users getUserById(Integer id);
+    User getUserById(Integer id);
+
+    //更新用户信息
+    boolean updateUser(User user);
+
 }

@@ -32,4 +32,19 @@ public interface CommentMapper {
 
     //获取最新的评论
     List<Comment> getRecentComments();
+
+    /**
+     * 后台根据ID删除评论
+     */
+    boolean deleteCommentById(@Param("coid") Integer coid);
+
+    /**
+     * 更新评论的状态
+     */
+    void updateCommentById(@Param("id") Integer id);
+
+    /**
+     * 更新评论
+     */
+    void updateComment(Comment comment);
 }

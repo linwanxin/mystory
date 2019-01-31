@@ -3,7 +3,7 @@ package com.lwx.mystory.model.entity;
 import lombok.Data;
 
 @Data
-public class Users extends BaseEntity {
+public class User extends BaseEntity {
 
     private Integer id;
     //用户名

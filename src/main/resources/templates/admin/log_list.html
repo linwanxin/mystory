@@ -29,7 +29,7 @@
                                 <tr>
                                     <td th:text="${log.id}"></td>
                                     <td th:text="${log.action}"></td>
-                                    <td th:text="${log.author_id}"></td>
+                                    <td th:text="${log.authorId}"></td>
                                     <td th:text="${log.ip}"></td>
                                     <td th:text="${log.data}"></td>
                                     <td th:text="${commons.fmtdate(log.created, 'yyyy-MM-dd HH:mm:ss')}"></td>
@@ -57,16 +57,16 @@
 
     function delComment(coid) {
         tale.alertConfirm({
-            title: '确定删除该评论吗?',
+            title: '确定删除该日志吗?',
             then: function () {
                 tale.post({
-                    url: '/admin/comments/delete',
+                    url: '/admin/logs/delete',
                     data: {coid: coid},
                     success: function (result) {
                         if (result && result.success) {
-                            tale.alertOkAndReload('评论删除成功');
+                            tale.alertOkAndReload('日志删除成功');
                         } else {
-                            tale.alertError(result.msg || '评论删除失败');
+                            tale.alertError(result.msg || '日志删除失败');
                         }
                     }
                 });
@@ -74,24 +74,6 @@
         });
     }
 
-    function updateStatus(coid) {
-        tale.alertConfirm({
-            title: '确定审核通过吗?',
-            then: function () {
-                tale.post({
-                    url: '/admin/comments/status',
-                    data: {coid: coid, status: "approved"},
-                    success: function (result) {
-                        if (result && result.success) {
-                            tale.alertOkAndReload('评论状态设置成功');
-                        } else {
-                            tale.alertError(result.msg || '评论设置失败');
-                        }
-                    }
-                });
-            }
-        });
-    }
 
     /*]]>*/
 </script>

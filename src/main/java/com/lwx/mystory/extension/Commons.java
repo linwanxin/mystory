@@ -203,14 +203,15 @@ public class Commons {
 
     /**
      * 获取最近8篇文章
-     *
+     *这里有问题导致的！
      * @return
      */
+    /*
     public List<Content> getContents() {
-        PageInfo<Content> pageInfo = contentService.getContentsByCondititions(Types.ARTICLE, 1, 8);
+        PageInfo<Content> pageInfo = contentService.getContentsByUserId(Types.ARTICLE, 1, 8);
         return pageInfo.getList();
     }
-
+*/
     public List<Comment> getComments() {
         PageHelper.startPage(1, 8);
         List<Comment> commentList = commentService.selectCommentsByAuthorId(1);

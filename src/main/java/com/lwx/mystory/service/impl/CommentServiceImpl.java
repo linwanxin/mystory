@@ -55,8 +55,12 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public String delCommentById(Integer id) {
-        return null;
+    public String delCommentById(Integer coid) {
+        boolean flag = commentMapper.deleteCommentById(coid);
+        if(flag){
+            return WebConstant.SUCCESS_RESULT;
+        }
+        return "系统异常，删除失败！";
     }
 
     @Override
@@ -107,5 +111,16 @@ public class CommentServiceImpl implements ICommentService {
         List<Comment> comments = commentMapper.getRecentComments();
         PageInfo<Comment> pageInfo = new PageInfo<>(comments);
         return pageInfo;
+    }
+
+    @Override
+    @Transactional
+    public void updateCommentById(Integer id) {
+        commentMapper.updateCommentById(id);
+    }
+
+    @Transactional
+    public void updateComment(Comment comment){
+        commentMapper.updateComment(comment);
     }
 }

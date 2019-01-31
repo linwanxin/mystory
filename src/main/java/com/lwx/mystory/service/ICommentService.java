@@ -32,7 +32,7 @@ public interface ICommentService {
 
     int saveComment(Comment comment);
 
-    String delCommentById(Integer id);
+    String delCommentById(Integer coid);
 
     PageInfo<Comment> getCommentsByContentId(Integer contentId, Integer page, Integer limit);
 
@@ -44,4 +44,14 @@ public interface ICommentService {
     String insertComment(Comment comment);
 
     PageInfo<Comment> getRecentComments(Integer page,Integer limit);
+
+    /**
+     * 按照整篇文章cid进行更新
+     */
+    void updateCommentById(Integer id);
+
+    /**
+     * 更新评论
+     */
+    void updateComment(Comment comment);
 }

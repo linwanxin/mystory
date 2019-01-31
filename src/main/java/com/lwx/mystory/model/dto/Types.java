@@ -25,4 +25,7 @@ public interface Types {
 
     //最近最新的文章
     String RECENT_ARTICLE = "recent_acticle";
+
+    //页面
+    String PAGE = "page";
 }

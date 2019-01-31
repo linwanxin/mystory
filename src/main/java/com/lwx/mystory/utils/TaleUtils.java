@@ -2,7 +2,7 @@ package com.lwx.mystory.utils;
 
 import com.lwx.mystory.constant.WebConstant;
 import com.lwx.mystory.extension.Commons;
-import com.lwx.mystory.model.entity.Users;
+import com.lwx.mystory.model.entity.User;
 import org.apache.commons.lang3.StringUtils;
 import org.commonmark.Extension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
@@ -33,6 +33,8 @@ public class TaleUtils {
 
     //添加Enail正则
     private static final Pattern VALI_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",Pattern.CASE_INSENSITIVE);
+    //slug缩略的正则表达
+    private static final Pattern SLUG_REGEX = Pattern.compile("^[A-Za-z0-9_-]{5,100}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * markdown解析器
@@ -71,12 +73,12 @@ public class TaleUtils {
      *
      * @return
      */
-    public static Users getLoginUser(HttpServletRequest request) {
+    public static User getLoginUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (null == session) {
             return null;
         }
-        return (Users) session.getAttribute(WebConstant.LOGIN_SESSION_KEY);
+        return (User) session.getAttribute(WebConstant.LOGIN_SESSION_KEY);
     }
 
     /**
@@ -143,4 +145,19 @@ public class TaleUtils {
         return value;
     }
 
+    /**
+     * 检查是否合法路径
+     * @param slug
+     * @return
+     */
+    public static boolean isPath(String slug){
+        if(StringUtils.isNotBlank(slug)){
+            if(slug.contains("/") || slug.contains(" ")|| slug.contains(".")){
+                return false;
+            }
+            Matcher matcher = SLUG_REGEX.matcher(slug);
+            return matcher.find();
+        }
+        return false;
+    }
 }

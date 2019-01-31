@@ -1,7 +1,7 @@
 package com.lwx.mystory.exception;
 
 import com.lwx.mystory.model.bo.RestResponseBo;
-import com.lwx.mystory.model.entity.Users;
+import com.lwx.mystory.model.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AuthorizationException.class)
     @ResponseBody
     public RestResponseBo handleAuthorizationException() {
-        Users user = (Users) SecurityUtils.getSubject().getPrincipal();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         logger.error("用户：" + user.getUsername() + "进行了一次无权限的操作！");
         return RestResponseBo.fail("Sorry!您无此权限！");
     }

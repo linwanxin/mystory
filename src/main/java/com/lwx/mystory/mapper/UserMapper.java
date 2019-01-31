@@ -1,6 +1,6 @@
 package com.lwx.mystory.mapper;
 
-import com.lwx.mystory.model.entity.Users;
+import com.lwx.mystory.model.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserMapper {
 
-    Users getUserById(@Param("id") Integer id);
+    User getUserById(@Param("id") Integer id);
 
-    void saveUser(Users user);
+    void saveUser(User user);
 
-    Users getUserByUserName(@Param("userName") String userName);
+    User getUserByUserName(@Param("userName") String userName);
+
+    boolean updateUser(User user);
 }

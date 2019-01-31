@@ -69,4 +69,23 @@ public interface ContentMapper {
      */
     List<Content> getContentsByTitle(@Param("title") String title, @Param("type") String type, @Param("status") String status);
 
+    /**
+     * 根据slug和type来查询文章的个数
+     */
+    long getContentsBySlugType(@Param("type") String type,@Param("slug") String slug);
+
+
+    /**
+     * 保存文章
+     */
+    void saveContent(Content content);
+    /**
+     * 根据userID查询
+     */
+    List<Content> getContentsByUserId(@Param("type") String type,@Param("userId") Integer userId);
+    /**
+     * 根据Id删除文章
+     */
+    void deleteContentById(@Param("id") Integer id);
+
 }

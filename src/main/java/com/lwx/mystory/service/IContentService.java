@@ -50,16 +50,6 @@ public interface IContentService {
     Content getContentBySlug(String slug);
 
     /**
-     * 根绝特定条件来查询文章
-     *
-     * @param type
-     * @param page
-     * @param limit
-     * @return
-     */
-    PageInfo<Content> getContentsByCondititions(String type, Integer page, Integer limit);
-
-    /**
      * 保存文章
      *
      * @param content
@@ -89,5 +79,18 @@ public interface IContentService {
      */
     PageInfo<Content> getContentsByTitle(String title, int page, int limit);
 
+    /**
+     * 根据userId查询
+     */
+    PageInfo<Content> getContentsByUserId(String type,Integer page,Integer limit);
 
+    /**
+     * 删除文章
+     */
+    String deleteContentById(Integer id);
+
+    /**
+     *修改文章标签关系表
+     */
+    void updateRelationShips(Integer cid,String tags,String categories);
 }

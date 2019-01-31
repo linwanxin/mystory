@@ -29,6 +29,12 @@ public class TaleUtilsTest {
         System.out.println(s2);
         System.out.println("70476487149327779303600443043791");
     }
+    @Test
+    public void testMD5(){
+        System.out.println(TaleUtils.MD5encode("admin123456"));
+    }
+
+
 
     /**
      * 验证结果是java和py是一致的！

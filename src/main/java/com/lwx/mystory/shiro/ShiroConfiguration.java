@@ -1,5 +1,6 @@
 package com.lwx.mystory.shiro;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
@@ -51,10 +52,9 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/comment/**", "anon");
         filterChainDefinitionMap.put("/soulPainter.html/**", "anon");
         filterChainDefinitionMap.put("/custom/**", "anon");
-
-        filterChainDefinitionMap.put("/druid/**", "anon");
-
         filterChainDefinitionMap.put("/", "anon");
+
+        //filterChainDefinitionMap.put("/druid/**", "anon");
 
         //除以上所有的url都必须认证才能通过才可以访问，未通过认证自动
         filterChainDefinitionMap.put("/**", "user");
@@ -99,5 +99,10 @@ public class ShiroConfiguration {
         //设置cookie过期时间,单位为秒，5天！
         cookie.setMaxAge(5 * 86400);
         return cookie;
+    }
+
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
     }
 }

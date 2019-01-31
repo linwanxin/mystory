@@ -70,7 +70,18 @@ public class AuthController extends BaseController {
         }
     }
 
-
-
+    /**
+     * shiro默认跳到首页
+     * @return
+     */
+    @GetMapping("/logout")
+    @ApiOperation(value = "后台用户注销",notes = "后台用户注销")
+    public String logout(){
+        Subject subject = SecurityUtils.getSubject();
+        if(subject != null){
+            subject.logout();
+        }
+        return "redirect:/admin/login";
+    }
 
 }

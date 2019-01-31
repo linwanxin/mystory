@@ -69,8 +69,13 @@ public class IndexController extends BaseController {
      * 文章详情页
      * @param request
      * @param cid     文章ID
-     * @param coid    评论页码，前台传过来的保证是1,所以不需要分页
+     * @param coid    评论页码，需要分成2个函数，因为后台用到
      */
+    @GetMapping("article/{cid}")
+    public String getArticle(HttpServletRequest request,
+                             @PathVariable String cid){
+        return this.getArticle(request,cid,"1");
+    }
     @GetMapping("article/{cid}/{coid}")
     public String getArticle(HttpServletRequest request,
                              @PathVariable String cid,
